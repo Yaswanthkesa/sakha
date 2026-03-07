@@ -93,19 +93,6 @@ mcpServers:
   faq-server:
     url: http://100.100.108.42:9010/mcp
     type: streamable-http
-  
-  admin-server:
-    type: streamable-http
-    url: http://admin-mcp-server:9011/mcp
-    headers:
-      X-Admin-Password: "{{M_KEY}}"
-    customUserVars:
-      M_KEY:
-        title: "Admin Password"
-        description: "Enter the admin password to authorize access to this MCP server. Default password is 'admin123'."
-    startup: false
-    timeout: 60000
-
 
 
 speech:
