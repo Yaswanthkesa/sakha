@@ -10,6 +10,7 @@ import SiblingSwitch from '~/components/Chat/Messages/SiblingSwitch';
 import HoverButtons from '~/components/Chat/Messages/HoverButtons';
 import MessageIcon from '~/components/Chat/Messages/MessageIcon';
 import SubRow from '~/components/Chat/Messages/SubRow';
+import FollowUpSuggestions from '~/components/Chat/Messages/FollowUpSuggestions';
 import { cn, getMessageAriaLabel } from '~/utils';
 import { fontSizeAtom } from '~/store/fontSize';
 import store from '~/store';
@@ -165,27 +166,34 @@ const ContentRender = memo(
             {hasNoChildren && effectiveIsSubmitting ? (
               <PlaceholderRow />
             ) : (
-              <SubRow classes="text-xs">
-                <SiblingSwitch
-                  siblingIdx={siblingIdx}
-                  siblingCount={siblingCount}
-                  setSiblingIdx={setSiblingIdx}
+              <>
+                <SubRow classes="text-xs">
+                  <SiblingSwitch
+                    siblingIdx={siblingIdx}
+                    siblingCount={siblingCount}
+                    setSiblingIdx={setSiblingIdx}
+                  />
+                  <HoverButtons
+                    index={index}
+                    message={msg}
+                    isEditing={edit}
+                    enterEdit={enterEdit}
+                    isSubmitting={isSubmitting}
+                    conversation={conversation ?? null}
+                    regenerate={handleRegenerateMessage}
+                    copyToClipboard={copyToClipboard}
+                    handleContinue={handleContinue}
+                    latestMessage={latestMessage}
+                    handleFeedback={handleFeedback}
+                    isLast={isLast}
+                  />
+                </SubRow>
+                <FollowUpSuggestions
+                  messageId={msg.messageId}
+                  isLatestMessage={isLatestMessage}
+                  isCreatedByUser={msg.isCreatedByUser ?? false}
                 />
-                <HoverButtons
-                  index={index}
-                  message={msg}
-                  isEditing={edit}
-                  enterEdit={enterEdit}
-                  isSubmitting={isSubmitting}
-                  conversation={conversation ?? null}
-                  regenerate={handleRegenerateMessage}
-                  copyToClipboard={copyToClipboard}
-                  handleContinue={handleContinue}
-                  latestMessage={latestMessage}
-                  handleFeedback={handleFeedback}
-                  isLast={isLast}
-                />
-              </SubRow>
+              </>
             )}
           </div>
         </div>
